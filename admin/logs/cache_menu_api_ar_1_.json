@@ -1,0 +1,125 @@
+{
+    "success": true,
+    "timestamp": "2025-09-10T12:39:32+02:00",
+    "language": {
+        "current": {
+            "id": 2,
+            "code": "ar",
+            "name": "Arabic",
+            "native_name": "العربية",
+            "direction": "rtl",
+            "is_active": 1,
+            "is_default": 0,
+            "created_at": "2025-09-06 10:55:42",
+            "updated_at": "2025-09-06 10:55:42"
+        },
+        "available": [
+            {
+                "id": 1,
+                "code": "en",
+                "name": "English",
+                "native_name": "English",
+                "direction": "ltr",
+                "is_active": 1,
+                "is_default": 1,
+                "created_at": "2025-09-06 10:55:42",
+                "updated_at": "2025-09-06 10:55:42"
+            },
+            {
+                "id": 2,
+                "code": "ar",
+                "name": "Arabic",
+                "native_name": "العربية",
+                "direction": "rtl",
+                "is_active": 1,
+                "is_default": 0,
+                "created_at": "2025-09-06 10:55:42",
+                "updated_at": "2025-09-06 10:55:42"
+            },
+            {
+                "id": 3,
+                "code": "ku",
+                "name": "Kurdish",
+                "native_name": "کوردی",
+                "direction": "rtl",
+                "is_active": 1,
+                "is_default": 0,
+                "created_at": "2025-09-06 10:55:42",
+                "updated_at": "2025-09-06 10:55:42"
+            }
+        ],
+        "requested": "ar"
+    },
+    "ui_labels": {
+        "dashboard": "لوحة التحكم",
+        "add_item": "إضافة عنصر جديد",
+        "manage_categories": "إدارة الفئات",
+        "manage_menu_types": "إدارة أنواع القوائم",
+        "logout": "تسجيل الخروج",
+        "name": "الاسم",
+        "category": "الفئة",
+        "menu_type": "نوع القائمة",
+        "price": "السعر",
+        "image": "الصورة",
+        "description": "الوصف",
+        "save": "حفظ",
+        "cancel": "إلغاء",
+        "edit": "تعديل",
+        "delete": "حذف",
+        "add_translation": "إضافة ترجمة",
+        "translations": "الترجمات",
+        "language": "اللغة",
+        "welcome": "مرحباً بكم في غرفة المعيشة",
+        "phone": "+1 234 567 8901",
+        "all": "الكل",
+        "indoor_menu": "قائمة الطعام الداخلية",
+        "outdoor_menu": "قائمة الطعام الخارجية"
+    },
+    "filters": {
+        "menu_type_id": 1,
+        "category": null
+    },
+    "stats": {
+        "total_items": 3,
+        "categories_count": 3,
+        "execution_time_ms": 2537.97,
+        "cache_status": "MISS"
+    },
+    "categories": [
+        "الأطباق الرئيسية",
+        "الحلويات",
+        "المقبلات"
+    ],
+    "data": [
+        {
+            "id": 2,
+            "name": "كباب الدجاج المشوي",
+            "description": "قطع دجاج طرية مشوية بالكمال مع الأرز",
+            "category": "الأطباق الرئيسية",
+            "menu_type": "قائمة الطعام الداخلية",
+            "price": "IQD 28.75",
+            "image": null,
+            "created_at": "2025-09-06 10:55:42"
+        },
+        {
+            "id": 3,
+            "name": "البقلاوة",
+            "description": "معجنات تقليدية محلاة بالعسل مع المكسرات",
+            "category": "الحلويات",
+            "menu_type": "قائمة الطعام الداخلية",
+            "price": "IQD 12.00",
+            "image": null,
+            "created_at": "2025-09-06 10:55:42"
+        },
+        {
+            "id": 1,
+            "name": "طبق الحمص",
+            "description": "حمص طازج يُقدم مع خبز البيتا الدافئ والخضروات",
+            "category": "المقبلات",
+            "menu_type": "قائمة الطعام الداخلية",
+            "price": "IQD 15.50",
+            "image": null,
+            "created_at": "2025-09-06 10:55:42"
+        }
+    ]
+}

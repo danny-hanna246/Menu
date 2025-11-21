@@ -1,0 +1,5 @@
+[2025-09-10 12:36:42] API request successful Context: {"language":"ku","menu_type":1,"items_returned":3,"execution_time":3038.55,"ip":"::1"}
+[2025-09-10 12:36:49] API request successful Context: {"language":"en","menu_type":1,"items_returned":3,"execution_time":3249.63,"ip":"::1"}
+[2025-09-10 12:37:19] API request successful Context: {"language":"en","menu_type":2,"items_returned":3,"execution_time":5609.36,"ip":"::1"}
+[2025-09-10 12:39:32] API request successful Context: {"language":"ar","menu_type":1,"items_returned":3,"execution_time":2537.97,"ip":"::1"}
+[2025-09-10 12:39:41] API request successful Context: {"language":"ar","menu_type":2,"items_returned":3,"execution_time":2598.03,"ip":"::1"}

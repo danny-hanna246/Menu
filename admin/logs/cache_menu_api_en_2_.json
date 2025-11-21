@@ -1,0 +1,125 @@
+{
+    "success": true,
+    "timestamp": "2025-09-10T12:37:19+02:00",
+    "language": {
+        "current": {
+            "id": 1,
+            "code": "en",
+            "name": "English",
+            "native_name": "English",
+            "direction": "ltr",
+            "is_active": 1,
+            "is_default": 1,
+            "created_at": "2025-09-06 10:55:42",
+            "updated_at": "2025-09-06 10:55:42"
+        },
+        "available": [
+            {
+                "id": 1,
+                "code": "en",
+                "name": "English",
+                "native_name": "English",
+                "direction": "ltr",
+                "is_active": 1,
+                "is_default": 1,
+                "created_at": "2025-09-06 10:55:42",
+                "updated_at": "2025-09-06 10:55:42"
+            },
+            {
+                "id": 2,
+                "code": "ar",
+                "name": "Arabic",
+                "native_name": "العربية",
+                "direction": "rtl",
+                "is_active": 1,
+                "is_default": 0,
+                "created_at": "2025-09-06 10:55:42",
+                "updated_at": "2025-09-06 10:55:42"
+            },
+            {
+                "id": 3,
+                "code": "ku",
+                "name": "Kurdish",
+                "native_name": "کوردی",
+                "direction": "rtl",
+                "is_active": 1,
+                "is_default": 0,
+                "created_at": "2025-09-06 10:55:42",
+                "updated_at": "2025-09-06 10:55:42"
+            }
+        ],
+        "requested": "en"
+    },
+    "ui_labels": {
+        "dashboard": "Dashboard",
+        "add_item": "Add New Item",
+        "manage_categories": "Manage Categories",
+        "manage_menu_types": "Manage Menu Types",
+        "logout": "Logout",
+        "name": "Name",
+        "category": "Category",
+        "menu_type": "Menu Type",
+        "price": "Price",
+        "image": "Image",
+        "description": "Description",
+        "save": "Save",
+        "cancel": "Cancel",
+        "edit": "Edit",
+        "delete": "Delete",
+        "add_translation": "Add Translation",
+        "translations": "Translations",
+        "language": "Language",
+        "welcome": "Welcome To Living Room",
+        "phone": "+1 234 567 8901",
+        "all": "All",
+        "indoor_menu": "Indoor Menu",
+        "outdoor_menu": "Outdoor Menu"
+    },
+    "filters": {
+        "menu_type_id": 2,
+        "category": null
+    },
+    "stats": {
+        "total_items": 3,
+        "categories_count": 3,
+        "execution_time_ms": 5609.36,
+        "cache_status": "MISS"
+    },
+    "categories": [
+        "Beverages",
+        "Family Meals",
+        "Popular Items"
+    ],
+    "data": [
+        {
+            "id": 6,
+            "name": "Fresh Orange Juices",
+            "description": "Freshly squeezed orange juice",
+            "category": "Beverages",
+            "menu_type": "Delivery Menu",
+            "price": "IQD 8.50",
+            "image": null,
+            "created_at": "2025-09-06 10:55:42"
+        },
+        {
+            "id": 5,
+            "name": "Family Feast",
+            "description": "Large meal serving 4-6 people with variety of dishes",
+            "category": "Family Meals",
+            "menu_type": "Delivery Menu",
+            "price": "IQD 45.00",
+            "image": null,
+            "created_at": "2025-09-06 10:55:42"
+        },
+        {
+            "id": 4,
+            "name": "Mixed Grill Platter",
+            "description": "Combination of our best grilled meats",
+            "category": "Popular Items",
+            "menu_type": "Delivery Menu",
+            "price": "IQD 22.50",
+            "image": null,
+            "created_at": "2025-09-06 10:55:42"
+        }
+    ]
+}

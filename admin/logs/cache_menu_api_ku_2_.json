@@ -1,0 +1,125 @@
+{
+    "success": true,
+    "timestamp": "2025-09-09T15:25:26+02:00",
+    "language": {
+        "current": {
+            "id": 3,
+            "code": "ku",
+            "name": "Kurdish",
+            "native_name": "کوردی",
+            "direction": "rtl",
+            "is_active": 1,
+            "is_default": 0,
+            "created_at": "2025-09-06 10:55:42",
+            "updated_at": "2025-09-06 10:55:42"
+        },
+        "available": [
+            {
+                "id": 1,
+                "code": "en",
+                "name": "English",
+                "native_name": "English",
+                "direction": "ltr",
+                "is_active": 1,
+                "is_default": 1,
+                "created_at": "2025-09-06 10:55:42",
+                "updated_at": "2025-09-06 10:55:42"
+            },
+            {
+                "id": 2,
+                "code": "ar",
+                "name": "Arabic",
+                "native_name": "العربية",
+                "direction": "rtl",
+                "is_active": 1,
+                "is_default": 0,
+                "created_at": "2025-09-06 10:55:42",
+                "updated_at": "2025-09-06 10:55:42"
+            },
+            {
+                "id": 3,
+                "code": "ku",
+                "name": "Kurdish",
+                "native_name": "کوردی",
+                "direction": "rtl",
+                "is_active": 1,
+                "is_default": 0,
+                "created_at": "2025-09-06 10:55:42",
+                "updated_at": "2025-09-06 10:55:42"
+            }
+        ],
+        "requested": "ku"
+    },
+    "ui_labels": {
+        "dashboard": "پانێڵی بەڕێوەبردن",
+        "add_item": "بەگەیەکی نوێ زیاد بکە",
+        "manage_categories": "بەڕێوەبردنی پۆلەکان",
+        "manage_menu_types": "بەڕێوەبردنی جۆرەکانی لیست",
+        "logout": "چوونە دەرەوە",
+        "name": "ناو",
+        "category": "پۆل",
+        "menu_type": "جۆری لیست",
+        "price": "نرخ",
+        "image": "وێنە",
+        "description": "وەسف",
+        "save": "پاشەکەوت",
+        "cancel": "هەڵوەشاندنەوە",
+        "edit": "دەستکاری",
+        "delete": "سڕینەوە",
+        "add_translation": "وەرگێڕان زیاد بکە",
+        "translations": "وەرگێڕانەکان",
+        "language": "زمان",
+        "welcome": "بەخێربێن بۆ ژووری نیشتنەوە",
+        "phone": "+1 234 567 8901",
+        "all": "هەموو",
+        "indoor_menu": "لیستی خواردنی ناوەوە",
+        "outdoor_menu": "لیستی خواردنی دەرەوە"
+    },
+    "filters": {
+        "menu_type_id": 2,
+        "category": null
+    },
+    "stats": {
+        "total_items": 3,
+        "categories_count": 3,
+        "execution_time_ms": 6423.06,
+        "cache_status": "MISS"
+    },
+    "categories": [
+        "بابەتە بەناوبانگەکان",
+        "خواردنەوە",
+        "ژەمی خێزان"
+    ],
+    "data": [
+        {
+            "id": 4,
+            "name": "قاپی برژاوی تێکەڵ",
+            "description": "تێکەڵەی باشترین گۆشتە برژاوەکانمان",
+            "category": "بابەتە بەناوبانگەکان",
+            "menu_type": "مێنووی گەیاندن",
+            "price": "IQD 22.50",
+            "image": null,
+            "created_at": "2025-09-06 10:55:42"
+        },
+        {
+            "id": 6,
+            "name": "ئاوی پرتەقاڵی تازە",
+            "description": "ئاوی پرتەقاڵی تازە گوشراو",
+            "category": "خواردنەوە",
+            "menu_type": "مێنووی گەیاندن",
+            "price": "IQD 8.50",
+            "image": null,
+            "created_at": "2025-09-06 10:55:42"
+        },
+        {
+            "id": 5,
+            "name": "خوانی خێزان",
+            "description": "ژەمی گەورە بۆ 4-6 کەس لەگەڵ جۆراوجۆری خواردن",
+            "category": "ژەمی خێزان",
+            "menu_type": "مێنووی گەیاندن",
+            "price": "IQD 45.00",
+            "image": null,
+            "created_at": "2025-09-06 10:55:42"
+        }
+    ]
+}

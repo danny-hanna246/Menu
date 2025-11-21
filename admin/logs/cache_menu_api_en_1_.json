@@ -1,0 +1,125 @@
+{
+    "success": true,
+    "timestamp": "2025-09-10T12:36:49+02:00",
+    "language": {
+        "current": {
+            "id": 1,
+            "code": "en",
+            "name": "English",
+            "native_name": "English",
+            "direction": "ltr",
+            "is_active": 1,
+            "is_default": 1,
+            "created_at": "2025-09-06 10:55:42",
+            "updated_at": "2025-09-06 10:55:42"
+        },
+        "available": [
+            {
+                "id": 1,
+                "code": "en",
+                "name": "English",
+                "native_name": "English",
+                "direction": "ltr",
+                "is_active": 1,
+                "is_default": 1,
+                "created_at": "2025-09-06 10:55:42",
+                "updated_at": "2025-09-06 10:55:42"
+            },
+            {
+                "id": 2,
+                "code": "ar",
+                "name": "Arabic",
+                "native_name": "العربية",
+                "direction": "rtl",
+                "is_active": 1,
+                "is_default": 0,
+                "created_at": "2025-09-06 10:55:42",
+                "updated_at": "2025-09-06 10:55:42"
+            },
+            {
+                "id": 3,
+                "code": "ku",
+                "name": "Kurdish",
+                "native_name": "کوردی",
+                "direction": "rtl",
+                "is_active": 1,
+                "is_default": 0,
+                "created_at": "2025-09-06 10:55:42",
+                "updated_at": "2025-09-06 10:55:42"
+            }
+        ],
+        "requested": "en"
+    },
+    "ui_labels": {
+        "dashboard": "Dashboard",
+        "add_item": "Add New Item",
+        "manage_categories": "Manage Categories",
+        "manage_menu_types": "Manage Menu Types",
+        "logout": "Logout",
+        "name": "Name",
+        "category": "Category",
+        "menu_type": "Menu Type",
+        "price": "Price",
+        "image": "Image",
+        "description": "Description",
+        "save": "Save",
+        "cancel": "Cancel",
+        "edit": "Edit",
+        "delete": "Delete",
+        "add_translation": "Add Translation",
+        "translations": "Translations",
+        "language": "Language",
+        "welcome": "Welcome To Living Room",
+        "phone": "+1 234 567 8901",
+        "all": "All",
+        "indoor_menu": "Indoor Menu",
+        "outdoor_menu": "Outdoor Menu"
+    },
+    "filters": {
+        "menu_type_id": 1,
+        "category": null
+    },
+    "stats": {
+        "total_items": 3,
+        "categories_count": 3,
+        "execution_time_ms": 3249.63,
+        "cache_status": "MISS"
+    },
+    "categories": [
+        "Appetizers",
+        "Desserts",
+        "Main Course"
+    ],
+    "data": [
+        {
+            "id": 1,
+            "name": "Hummus Platter",
+            "description": "Fresh hummus served with warm pita bread and vegetables",
+            "category": "Appetizers",
+            "menu_type": "Indoor Menu",
+            "price": "IQD 15.50",
+            "image": null,
+            "created_at": "2025-09-06 10:55:42"
+        },
+        {
+            "id": 3,
+            "name": "Baklava",
+            "description": "Traditional honey-sweetened pastry with nuts",
+            "category": "Desserts",
+            "menu_type": "Indoor Menu",
+            "price": "IQD 12.00",
+            "image": null,
+            "created_at": "2025-09-06 10:55:42"
+        },
+        {
+            "id": 2,
+            "name": "Grilled Chicken Kabab",
+            "description": "Tender chicken pieces grilled to perfection with rice",
+            "category": "Main Course",
+            "menu_type": "Indoor Menu",
+            "price": "IQD 28.75",
+            "image": null,
+            "created_at": "2025-09-06 10:55:42"
+        }
+    ]
+}

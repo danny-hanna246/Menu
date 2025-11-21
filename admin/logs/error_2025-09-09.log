@@ -1,0 +1,41 @@
+[2025-09-09 13:01:43] Successful login Context: {"username":"admin","ip":"::1"}
+[2025-09-09 13:29:01] API request successful Context: {"language":"en","menu_type":1,"items_returned":3,"execution_time":2784.4,"ip":"::1"}
+[2025-09-09 13:29:11] API request successful Context: {"language":"ar","menu_type":1,"items_returned":3,"execution_time":2661.32,"ip":"::1"}
+[2025-09-09 13:29:18] API request successful Context: {"language":"ku","menu_type":1,"items_returned":3,"execution_time":2656.46,"ip":"::1"}
+[2025-09-09 13:29:57] API request successful Context: {"language":"ar","menu_type":2,"items_returned":3,"execution_time":3674.16,"ip":"::1"}
+[2025-09-09 13:38:15] API request successful Context: {"language":"ar","menu_type":1,"items_returned":3,"execution_time":3579.17,"ip":"::1"}
+[2025-09-09 13:39:03] API request successful Context: {"language":"en","menu_type":1,"items_returned":3,"execution_time":3025.29,"ip":"::1"}
+[2025-09-09 13:39:08] API request successful Context: {"language":"en","menu_type":2,"items_returned":3,"execution_time":2642.93,"ip":"::1"}
+[2025-09-09 13:46:56] Database error fetching item for edit Context: {"id":6,"error":"SQLSTATE[42S22]: Column not found: 1054 Unknown column 'c.name' in 'SELECT'"}
+[2025-09-09 13:47:05] Database error fetching item for edit Context: {"id":6,"error":"SQLSTATE[42S22]: Column not found: 1054 Unknown column 'c.name' in 'SELECT'"}
+[2025-09-09 13:47:28] Database error fetching item for edit Context: {"id":5,"error":"SQLSTATE[42S22]: Column not found: 1054 Unknown column 'c.name' in 'SELECT'"}
+[2025-09-09 13:48:15] Database error fetching item for edit Context: {"id":6,"error":"SQLSTATE[42S22]: Column not found: 1054 Unknown column 'c.name' in 'SELECT'"}
+[2025-09-09 13:48:45] Database error fetching item for edit Context: {"id":6,"error":"SQLSTATE[42S22]: Column not found: 1054 Unknown column 'c.name' in 'SELECT'"}
+[2025-09-09 14:01:07] Database error fetching item for edit Context: {"id":1,"error":"SQLSTATE[42S22]: Column not found: 1054 Unknown column 'c.name' in 'SELECT'"}
+[2025-09-09 14:01:19] Database error fetching item for edit Context: {"id":6,"error":"SQLSTATE[42S22]: Column not found: 1054 Unknown column 'c.name' in 'SELECT'"}
+[2025-09-09 14:01:44] Unauthorized access attempt Context: {"url":"\/MENU\/admin\/edit.php?id=6","ip":"::1","user_agent":"Mozilla\/5.0 (Linux; Android 6.0; Nexus 5 Build\/MRA58N) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/140.0.0.0 Mobile Safari\/537.36"}
+[2025-09-09 14:01:50] Login attempt with non-existent username Context: {"username":"root"}
+[2025-09-09 14:02:05] Successful login Context: {"username":"admin","ip":"::1"}
+[2025-09-09 14:02:15] Database error fetching item for edit Context: {"id":6,"error":"SQLSTATE[42S22]: Column not found: 1054 Unknown column 'c.name' in 'SELECT'"}
+[2025-09-09 14:14:10] Database error during delete operation Context: {"item_id":7,"error":"SQLSTATE[42S22]: Column not found: 1054 Unknown column 'c.name' in 'SELECT'","code":"42S22","user":"admin"}
+[2025-09-09 14:14:29] Database error during delete operation Context: {"item_id":7,"error":"SQLSTATE[42S22]: Column not found: 1054 Unknown column 'c.name' in 'SELECT'","code":"42S22","user":"admin"}
+[2025-09-09 14:17:42] CSRF token validation failed Context: {"username":"admin","url":"\/MENU\/admin\/manage-menu-types.php","method":"POST"}
+[2025-09-09 14:23:12] CSRF token validation failed Context: {"username":"admin","url":"\/MENU\/admin\/manage-categories.php?menu_type=1","method":"POST"}
+[2025-09-09 14:25:14] CSRF token validation failed Context: {"username":"admin","url":"\/MENU\/admin\/manage-categories.php?menu_type=1","method":"POST"}
+[2025-09-09 14:28:53] CSRF token validation failed Context: {"username":"admin","url":"\/MENU\/admin\/manage-menu-types.php","method":"POST"}
+[2025-09-09 14:38:52] Menu type management operation failed Context: {"action":"csrf_token","error":"Invalid security token. Please refresh the page and try again.","user":"admin"}
+[2025-09-09 14:39:16] Menu type management operation failed Context: {"action":"csrf_token","error":"Invalid security token. Please refresh the page and try again.","user":"admin"}
+[2025-09-09 14:49:54] User logout Context: {"username":"admin","session_duration_minutes":47.82,"ip":"::1"}
+[2025-09-09 14:53:09] Unauthorized access attempt Context: {"url":"\/MENU\/admin\/dashboard.php","ip":"::1","user_agent":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/140.0.0.0 Safari\/537.36"}
+[2025-09-09 15:00:37] Rate limit exceeded for login Context: {"ip":"::1"}
+[2025-09-09 15:00:54] Rate limit exceeded for login Context: {"ip":"::1"}
+[2025-09-09 15:01:18] Rate limit exceeded for login Context: {"ip":"::1"}
+[2025-09-09 15:03:58] Rate limit exceeded for login Context: {"ip":"::1"}
+[2025-09-09 15:05:39] Unauthorized access attempt Context: {"url":"\/MENU\/admin\/dashboard.php","ip":"::1","user_agent":"Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/140.0.0.0 Safari\/537.36"}
+[2025-09-09 15:07:58] CSRF token validation failed Context: {"ip":"::1"}
+[2025-09-09 15:09:43] Successful login Context: {"username":"admin","ip":"::1"}
+[2025-09-09 15:15:24] Menu type management operation failed Context: {"action":"csrf_token","error":"Invalid security token. Please refresh the page and try again.","user":"admin"}
+[2025-09-09 15:24:55] API request successful Context: {"language":"en","menu_type":1,"items_returned":3,"execution_time":4202.69,"ip":"::1"}
+[2025-09-09 15:25:08] API request successful Context: {"language":"en","menu_type":2,"items_returned":3,"execution_time":3057.35,"ip":"::1"}
+[2025-09-09 15:25:16] API request successful Context: {"language":"ar","menu_type":2,"items_returned":3,"execution_time":4752.6,"ip":"::1"}
+[2025-09-09 15:25:26] API request successful Context: {"language":"ku","menu_type":2,"items_returned":3,"execution_time":6423.06,"ip":"::1"}

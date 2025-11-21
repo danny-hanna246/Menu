@@ -1,0 +1,125 @@
+{
+    "success": true,
+    "timestamp": "2025-09-10T12:39:41+02:00",
+    "language": {
+        "current": {
+            "id": 2,
+            "code": "ar",
+            "name": "Arabic",
+            "native_name": "العربية",
+            "direction": "rtl",
+            "is_active": 1,
+            "is_default": 0,
+            "created_at": "2025-09-06 10:55:42",
+            "updated_at": "2025-09-06 10:55:42"
+        },
+        "available": [
+            {
+                "id": 1,
+                "code": "en",
+                "name": "English",
+                "native_name": "English",
+                "direction": "ltr",
+                "is_active": 1,
+                "is_default": 1,
+                "created_at": "2025-09-06 10:55:42",
+                "updated_at": "2025-09-06 10:55:42"
+            },
+            {
+                "id": 2,
+                "code": "ar",
+                "name": "Arabic",
+                "native_name": "العربية",
+                "direction": "rtl",
+                "is_active": 1,
+                "is_default": 0,
+                "created_at": "2025-09-06 10:55:42",
+                "updated_at": "2025-09-06 10:55:42"
+            },
+            {
+                "id": 3,
+                "code": "ku",
+                "name": "Kurdish",
+                "native_name": "کوردی",
+                "direction": "rtl",
+                "is_active": 1,
+                "is_default": 0,
+                "created_at": "2025-09-06 10:55:42",
+                "updated_at": "2025-09-06 10:55:42"
+            }
+        ],
+        "requested": "ar"
+    },
+    "ui_labels": {
+        "dashboard": "لوحة التحكم",
+        "add_item": "إضافة عنصر جديد",
+        "manage_categories": "إدارة الفئات",
+        "manage_menu_types": "إدارة أنواع القوائم",
+        "logout": "تسجيل الخروج",
+        "name": "الاسم",
+        "category": "الفئة",
+        "menu_type": "نوع القائمة",
+        "price": "السعر",
+        "image": "الصورة",
+        "description": "الوصف",
+        "save": "حفظ",
+        "cancel": "إلغاء",
+        "edit": "تعديل",
+        "delete": "حذف",
+        "add_translation": "إضافة ترجمة",
+        "translations": "الترجمات",
+        "language": "اللغة",
+        "welcome": "مرحباً بكم في غرفة المعيشة",
+        "phone": "+1 234 567 8901",
+        "all": "الكل",
+        "indoor_menu": "قائمة الطعام الداخلية",
+        "outdoor_menu": "قائمة الطعام الخارجية"
+    },
+    "filters": {
+        "menu_type_id": 2,
+        "category": null
+    },
+    "stats": {
+        "total_items": 3,
+        "categories_count": 3,
+        "execution_time_ms": 2598.03,
+        "cache_status": "MISS"
+    },
+    "categories": [
+        "الأصناف الشائعة",
+        "المشروبات",
+        "وجبات العائلة"
+    ],
+    "data": [
+        {
+            "id": 4,
+            "name": "طبق المشاوي المختلطة",
+            "description": "مزيج من أفضل اللحوم المشوية لدينا",
+            "category": "الأصناف الشائعة",
+            "menu_type": "قائمة التوصيل",
+            "price": "IQD 22.50",
+            "image": null,
+            "created_at": "2025-09-06 10:55:42"
+        },
+        {
+            "id": 6,
+            "name": "عصير البرتقال الطازج",
+            "description": "عصير برتقال معصور طازجاً",
+            "category": "المشروبات",
+            "menu_type": "قائمة التوصيل",
+            "price": "IQD 8.50",
+            "image": null,
+            "created_at": "2025-09-06 10:55:42"
+        },
+        {
+            "id": 5,
+            "name": "وليمة العائلة",
+            "description": "وجبة كبيرة تكفي 4-6 أشخاص مع مجموعة متنوعة من الأطباق",
+            "category": "وجبات العائلة",
+            "menu_type": "قائمة التوصيل",
+            "price": "IQD 45.00",
+            "image": null,
+            "created_at": "2025-09-06 10:55:42"
+        }
+    ]
+}

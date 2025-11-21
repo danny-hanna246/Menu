@@ -1,0 +1,11 @@
+[2025-09-06 09:40:08] API request successful Context: {"language":"en","menu_type":null,"items_returned":0,"execution_time":3724.51,"ip":"::1"}
+[2025-09-06 09:47:46] API request successful Context: {"language":"en","menu_type":null,"items_returned":0,"execution_time":2403.12,"ip":"::1"}
+[2025-09-06 09:47:55] API request successful Context: {"language":"ar","menu_type":null,"items_returned":0,"execution_time":2466.66,"ip":"::1"}
+[2025-09-06 10:41:01] API request successful Context: {"language":"en","menu_type":null,"items_returned":0,"execution_time":2376.4,"ip":"::1"}
+[2025-09-06 11:17:53] API request successful Context: {"language":"en","menu_type":null,"items_returned":6,"execution_time":2938.73,"ip":"::1"}
+[2025-09-06 11:21:00] Failed login attempt Context: {"username":"admin","attempts":1}
+[2025-09-06 11:21:12] Successful login Context: {"username":"admin","ip":"::1"}
+[2025-09-06 11:24:35] API request successful Context: {"language":"ar","menu_type":null,"items_returned":6,"execution_time":2730.48,"ip":"::1"}
+[2025-09-06 11:24:50] API request successful Context: {"language":"ku","menu_type":null,"items_returned":6,"execution_time":3342.12,"ip":"::1"}
+[2025-09-06 11:28:05] API request successful Context: {"language":"en","menu_type":null,"items_returned":6,"execution_time":2423.47,"ip":"::1"}
+[2025-09-06 11:50:00] API request successful Context: {"language":"en","menu_type":null,"items_returned":6,"execution_time":2347.71,"ip":"::1"}
