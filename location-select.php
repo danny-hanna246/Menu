@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['location'])) {
 
     if (in_array($selectedLocation, $allowedLocations)) {
         $_SESSION['location'] = $selectedLocation;
-        
+
         // توجيه المستخدم حسب اختياره
         if ($selectedLocation === 'indoor') {
             header('Location: Indoor_MENU/INindex.php');
@@ -69,6 +69,7 @@ header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-in
 ?>
 <!DOCTYPE html>
 <html lang="<?= $selectedLang ?>" dir="<?= $direction ?>">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -125,7 +126,6 @@ header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-in
         .language-switcher {
             position: fixed;
             top: 20px;
-            <?= $direction === 'rtl' ? 'left' : 'right' ?>: 20px;
             z-index: 1000;
         }
 
@@ -167,6 +167,7 @@ header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-in
                 opacity: 0;
                 transform: translateY(-30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -184,9 +185,12 @@ header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-in
         }
 
         @keyframes pulse {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: scale(1);
             }
+
             50% {
                 transform: scale(1.05);
             }
@@ -372,9 +376,10 @@ header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-in
         }
     </style>
 </head>
+
 <body>
     <!-- Language Switcher -->
-    <div class="language-switcher">
+    <div class="language-switcher <?= ($direction === 'rtl') ? 'rtl' : 'ltr' ?>">
         <a href="language-select.php" class="back-btn">
             <?= $direction === 'rtl' ? '← تغيير اللغة' : 'Change Language →' ?>
         </a>
@@ -414,28 +419,28 @@ header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-in
 
         <!-- Social Media Icons -->
         <div style="display: flex; justify-content: center; gap: 15px; margin: 30px 0;">
-            <a href="https://wa.me/9647511401949" target="_blank" rel="noopener noreferrer" 
-               style="width: 50px; height: 50px; background: rgba(37, 211, 102, 0.2); backdrop-filter: blur(10px); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.2);"
-               onmouseover="this.style.background='rgba(37, 211, 102, 0.4)'; this.style.transform='translateY(-5px)'"
-               onmouseout="this.style.background='rgba(37, 211, 102, 0.2)'; this.style.transform='translateY(0)'">
+            <a href="https://wa.me/9647511401949" target="_blank" rel="noopener noreferrer"
+                style="width: 50px; height: 50px; background: rgba(37, 211, 102, 0.2); backdrop-filter: blur(10px); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.2);"
+                onmouseover="this.style.background='rgba(37, 211, 102, 0.4)'; this.style.transform='translateY(-5px)'"
+                onmouseout="this.style.background='rgba(37, 211, 102, 0.2)'; this.style.transform='translateY(0)'">
                 <img src="uploads/whatsapp (2).png" alt="WhatsApp" style="width: 26px; height: 26px;">
             </a>
             <a href="https://www.facebook.com/shadysamitrue" target="_blank" rel="noopener noreferrer"
-               style="width: 50px; height: 50px; background: rgba(59, 89, 152, 0.2); backdrop-filter: blur(10px); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.2);"
-               onmouseover="this.style.background='rgba(59, 89, 152, 0.4)'; this.style.transform='translateY(-5px)'"
-               onmouseout="this.style.background='rgba(59, 89, 152, 0.2)'; this.style.transform='translateY(0)'">
+                style="width: 50px; height: 50px; background: rgba(59, 89, 152, 0.2); backdrop-filter: blur(10px); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.2);"
+                onmouseover="this.style.background='rgba(59, 89, 152, 0.4)'; this.style.transform='translateY(-5px)'"
+                onmouseout="this.style.background='rgba(59, 89, 152, 0.2)'; this.style.transform='translateY(0)'">
                 <img src="uploads/facebook (1).png" alt="Facebook" style="width: 26px; height: 26px;">
             </a>
             <a href="https://www.instagram.com/livingroom.restaurant/" target="_blank" rel="noopener noreferrer"
-               style="width: 50px; height: 50px; background: rgba(225, 48, 108, 0.2); backdrop-filter: blur(10px); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.2);"
-               onmouseover="this.style.background='rgba(225, 48, 108, 0.4)'; this.style.transform='translateY(-5px)'"
-               onmouseout="this.style.background='rgba(225, 48, 108, 0.2)'; this.style.transform='translateY(0)'">
+                style="width: 50px; height: 50px; background: rgba(225, 48, 108, 0.2); backdrop-filter: blur(10px); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.2);"
+                onmouseover="this.style.background='rgba(225, 48, 108, 0.4)'; this.style.transform='translateY(-5px)'"
+                onmouseout="this.style.background='rgba(225, 48, 108, 0.2)'; this.style.transform='translateY(0)'">
                 <img src="uploads/insta (1).png" alt="Instagram" style="width: 26px; height: 26px;">
             </a>
             <a href="https://www.tiktok.com/@living_room54" target="_blank" rel="noopener noreferrer"
-               style="width: 50px; height: 50px; background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(10px); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.2);"
-               onmouseover="this.style.background='rgba(0, 0, 0, 0.5)'; this.style.transform='translateY(-5px)'"
-               onmouseout="this.style.background='rgba(0, 0, 0, 0.3)'; this.style.transform='translateY(0)'">
+                style="width: 50px; height: 50px; background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(10px); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.2);"
+                onmouseover="this.style.background='rgba(0, 0, 0, 0.5)'; this.style.transform='translateY(-5px)'"
+                onmouseout="this.style.background='rgba(0, 0, 0, 0.3)'; this.style.transform='translateY(0)'">
                 <img src="uploads/tik-tok (1).png" alt="TikTok" style="width: 26px; height: 26px;">
             </a>
         </div>
@@ -459,4 +464,5 @@ header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-in
         }
     </script>
 </body>
+
 </html>
