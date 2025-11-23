@@ -1,100 +1,41 @@
 <?php
-// Enhanced index.php with comprehensive security measures
+/**
+ * Living Room Restaurant - Main Entry Point
+ * نقطة الدخول الرئيسية للمشروع
+ */
+
 session_start();
 
-// إذا لم يتم اختيار اللغة، انتقل لصفحة اختيار اللغة
-if (!isset($_SESSION['lang']) || empty($_SESSION['lang'])) {
-  header('Location: language-select.php');
-  exit;
-}
-
-// إذا لم يتم اختيار الموقع، انتقل لصفحة اختيار الموقع
-if (!isset($_SESSION['location']) || empty($_SESSION['location'])) {
-  header('Location: location-select.php');
-  exit;
-}
-
-// الحصول على اللغة والموقع المحددين
-$selectedLang = $_SESSION['lang'];
-$selectedLocation = $_SESSION['location'];
-
-// السماح بتغيير اللغة
-if (isset($_GET['change_lang'])) {
-  unset($_SESSION['lang']);
-  unset($_SESSION['location']);
-  header('Location: language-select.php');
-  exit;
-}
-// Security headers
+// Security Headers
 header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: SAMEORIGIN');
 header('X-XSS-Protection: 1; mode=block');
 header('Referrer-Policy: strict-origin-when-cross-origin');
 
-// Start session securely if needed for language preference
-if (session_status() === PHP_SESSION_NONE) {
-  ini_set('session.use_strict_mode', 1);
-  ini_set('session.use_only_cookies', 1);
-  ini_set('session.cookie_httponly', 1);
-  ini_set('session.cookie_secure', isset($_SERVER['HTTPS']));
-  ini_set('session.cookie_samesite', 'Strict');
-  session_start();
+// إذا لم يتم اختيار اللغة، انتقل لصفحة اختيار اللغة
+if (!isset($_SESSION['lang']) || empty($_SESSION['lang'])) {
+    header('Location: language-select.php');
+    exit;
 }
 
-// Input validation and sanitization
-$selectedLang = 'en';
-if (!empty($_GET['lang'])) {
-  $inputLang = filter_var($_GET['lang'], FILTER_SANITIZE_STRING);
-  $allowedLangs = ['en', 'ar', 'ku'];
-  if (in_array($inputLang, $allowedLangs)) {
-    $selectedLang = $inputLang;
-    $_SESSION['user_language'] = $selectedLang;
-  }
-} elseif (!empty($_SESSION['user_language'])) {
-  $selectedLang = $_SESSION['user_language'];
+// إذا لم يتم اختيار الموقع، انتقل لصفحة اختيار الموقع
+if (!isset($_SESSION['location']) || empty($_SESSION['location'])) {
+    header('Location: location-select.php');
+    exit;
 }
 
-// Rate limiting for page requests (basic protection)
-$clientIP = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
-$rateKey = 'page_' . $clientIP;
+// إعادة التوجيه حسب الموقع المختار
+$location = $_SESSION['location'];
+$lang = $_SESSION['lang'];
 
-// Simple file-based rate limiting
-$rateFile = sys_get_temp_dir() . '/rate_' . md5($rateKey) . '.txt';
-$currentTime = time();
-$timeWindow = 60; // 1 minute
-$maxRequests = 30; // 30 requests per minute
-
-if (file_exists($rateFile)) {
-  $rateData = json_decode(file_get_contents($rateFile), true);
-  if ($rateData && ($currentTime - $rateData['first_request']) < $timeWindow) {
-    if ($rateData['count'] >= $maxRequests) {
-      http_response_code(429);
-      header('Retry-After: ' . ($timeWindow - ($currentTime - $rateData['first_request'])));
-      exit('Rate limit exceeded. Please try again later.');
-    }
-    $rateData['count']++;
-  } else {
-    $rateData = ['first_request' => $currentTime, 'count' => 1];
-  }
+if ($location === 'indoor') {
+    // قائمة المطعم - عرض فقط
+    header('Location: Indoor_MENU/INindex.php?lang=' . $lang);
 } else {
-  $rateData = ['first_request' => $currentTime, 'count' => 1];
+    // قائمة التوصيل - طلب عبر واتساب
+    header('Location: Delivery_MENU/Dindex.php?lang=' . $lang);
 }
-file_put_contents($rateFile, json_encode($rateData), LOCK_EX);
-
-// Cleanup old rate limit files (5% chance)
-if (random_int(1, 100) <= 5) {
-  $tempDir = sys_get_temp_dir();
-  $files = glob($tempDir . '/rate_*.txt');
-  foreach ($files as $file) {
-    if (file_exists($file) && (time() - filemtime($file)) > 3600) { // 1 hour old
-      @unlink($file);
-    }
-  }
-}
-
-// Content Security Policy
-$nonce = base64_encode(random_bytes(16));
-header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'nonce-{$nonce}'; img-src 'self' data:; font-src 'self'; connect-src 'self'");
+exit;
 ?>
 <!DOCTYPE html>
 <html lang="<?= htmlspecialchars($selectedLang, ENT_QUOTES, 'UTF-8') ?>" dir="<?= $selectedLang === 'ar' || $selectedLang === 'ku' ? 'rtl' : 'ltr' ?>">

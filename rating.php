@@ -29,11 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_rating'])) {
             throw new Exception('الرجاء إدخال الاسم');
         }
 
-        if (
-            $serviceRating < 1 || $serviceRating > 5 ||
-            $staffRating < 1 || $staffRating > 5 ||
-            $cleanlinessRating < 1 || $cleanlinessRating > 5
-        ) {
+        if ($serviceRating < 1 || $serviceRating > 5 || 
+            $staffRating < 1 || $staffRating > 5 || 
+            $cleanlinessRating < 1 || $cleanlinessRating > 5) {
             throw new Exception('الرجاء تحديد تقييم صحيح');
         }
 
@@ -61,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_rating'])) {
         ]);
 
         $success = true;
+        
     } catch (Exception $e) {
         $error = $e->getMessage();
     }
@@ -144,7 +143,6 @@ header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-in
 ?>
 <!DOCTYPE html>
 <html lang="<?= $selectedLang ?>" dir="<?= $direction ?>">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -213,7 +211,6 @@ header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-in
                 opacity: 0;
                 transform: translateY(-30px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -368,7 +365,7 @@ header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-in
             display: none;
         }
 
-        .experience-option input[type="radio"]:checked+.experience-content {
+        .experience-option input[type="radio"]:checked + .experience-content {
             border-color: rgba(239, 68, 68, 1);
         }
 
@@ -527,7 +524,6 @@ header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-in
         }
     </style>
 </head>
-
 <body>
     <div class="container">
         <?php if ($success): ?>
@@ -654,7 +650,7 @@ header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-in
         // Star Rating Functionality
         document.querySelectorAll('.stars').forEach(starsContainer => {
             const stars = starsContainer.querySelectorAll('.star');
-
+            
             stars.forEach((star, index) => {
                 // Mouse hover effect
                 star.addEventListener('mouseenter', () => {
@@ -671,7 +667,7 @@ header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-in
                 star.addEventListener('click', () => {
                     const input = star.querySelector('input[type="radio"]');
                     input.checked = true;
-
+                    
                     stars.forEach((s, i) => {
                         if (i <= index) {
                             s.classList.add('active');
@@ -707,10 +703,10 @@ header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-in
                 document.querySelectorAll('.experience-option').forEach(opt => {
                     opt.classList.remove('selected');
                 });
-
+                
                 // Add selected class to clicked option
                 this.classList.add('selected');
-
+                
                 // Check the radio button
                 this.querySelector('input[type="radio"]').checked = true;
             });
@@ -736,5 +732,4 @@ header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-in
         }
     </script>
 </body>
-
 </html>

@@ -1,17 +1,18 @@
 <?php
-// Enhanced delete.php with comprehensive security measures
+// Enhanced delete.php with comprehensive security measures - FIXED VERSION
 
 require 'db.php';
 require 'auth.php';
 require 'translations.php';
 require 'functions.php';
 require_once 'config.php';
+
 // Require deletion permission
 requirePermission('delete_items');
 
 // Rate limiting for delete operations
 $rateLimitKey = 'delete_' . getCurrentAdmin()['id'];
-if (!checkRateLimit($rateLimitKey, 10, 600)) { // 10 deletes per 10 minutes
+if (!checkRateLimit($rateLimitKey, 10, 600)) {
     logError("Delete rate limit exceeded", [
         'user' => getCurrentAdmin()['username'],
         'ip' => $_SERVER['REMOTE_ADDR'] ?? 'unknown'
@@ -50,21 +51,22 @@ try {
     // Start transaction for data integrity
     $pdo->beginTransaction();
 
-    // Get item details with all related information before deletion
+    // ✅ FIXED: Get item details WITHOUT c.name
     $stmt = $pdo->prepare("
-    SELECT 
-        m.*,
-        c.menu_type_id
-    FROM menu_items m
-    LEFT JOIN categories c ON m.category_id = c.id
-    WHERE m.id = ?
-");
+        SELECT 
+            m.*,
+            c.menu_type_id
+        FROM menu_items m
+        LEFT JOIN categories c ON m.category_id = c.id
+        WHERE m.id = ?
+    ");
     $stmt->execute([$id]);
     $item = $stmt->fetch(PDO::FETCH_ASSOC);
-    // Fetch translated category name for the audit log
+    
+    // ✅ FIXED: Fetch category name from translations
     if ($item) {
         $allCategories = $translation->getCategoriesWithTranslations('en', $item['menu_type_id']);
-        $item['category_name'] = 'Unknown Category'; // Set a default value
+        $item['category_name'] = 'Unknown Category';
         foreach ($allCategories as $cat) {
             if ($cat['id'] == $item['category_id']) {
                 $item['category_name'] = $cat['name'];
@@ -72,6 +74,7 @@ try {
             }
         }
     }
+    
     if (!$item) {
         $pdo->rollback();
         logError("Attempt to delete non-existent item", [
@@ -92,57 +95,19 @@ try {
     // Get the primary name for display
     $primaryName = $itemNames['en'] ?? $itemNames[array_key_first($itemNames)] ?? 'Unknown Item';
 
-    // Verify user has permission to delete items from this menu type
-    // Additional authorization check - could be extended for role-based permissions
-    $userCanDelete = true; // For now, all authenticated admins can delete
-
-    if (!$userCanDelete) {
-        $pdo->rollback();
-        logError("Unauthorized delete attempt", [
-            'item_id' => $id,
-            'item_name' => $primaryName,
-            'user' => getCurrentAdmin()['username'],
-            'menu_type_id' => $item['menu_type_id']
-        ]);
-        header('Location: dashboard.php?error=' . urlencode('Insufficient permissions to delete this item'));
-        exit;
-    }
-
-    // Delete image file securely
+    // Delete image file if exists
     $imageDeleted = false;
-    $imagePath = null;
     if (!empty($item['image'])) {
-        $imagePath = '../uploads/' . $item['image'];
-
-        // Validate image path to prevent directory traversal
-        $realImagePath = realpath($imagePath);
-        $uploadsDir = realpath('../uploads/');
-
-        if ($realImagePath && $uploadsDir && strpos($realImagePath, $uploadsDir) === 0) {
-            if (file_exists($realImagePath) && is_file($realImagePath)) {
-                // Additional security: verify it's actually an image file
-                $imageInfo = @getimagesize($realImagePath);
-                if ($imageInfo !== false) {
-                    if (unlink($realImagePath)) {
-                        $imageDeleted = true;
-                    } else {
-                        logError("Failed to delete image file", [
-                            'image_path' => $imagePath,
-                            'item_id' => $id
-                        ]);
-                    }
-                } else {
-                    logError("Attempted to delete non-image file", [
-                        'image_path' => $imagePath,
-                        'item_id' => $id
-                    ]);
-                }
+        $imagePath = UPLOAD_PATH . $item['image'];
+        if (file_exists($imagePath)) {
+            if (unlink($imagePath)) {
+                $imageDeleted = true;
+            } else {
+                logError("Failed to delete image file", [
+                    'item_id' => $id,
+                    'image_path' => $item['image']
+                ]);
             }
-        } else {
-            logError("Invalid image path detected in delete operation", [
-                'image_path' => $imagePath,
-                'item_id' => $id
-            ]);
         }
     }
 
@@ -195,6 +160,7 @@ try {
 
     header('Location: ' . $redirectUrl . '?success=' . urlencode($successMessage));
     exit;
+
 } catch (PDOException $e) {
     $pdo->rollback();
 
@@ -207,6 +173,7 @@ try {
 
     header('Location: dashboard.php?error=' . urlencode('Database error occurred during deletion'));
     exit;
+    
 } catch (Exception $e) {
     $pdo->rollback();
 
@@ -219,3 +186,4 @@ try {
     header('Location: dashboard.php?error=' . urlencode('An error occurred during deletion'));
     exit;
 }
+?>

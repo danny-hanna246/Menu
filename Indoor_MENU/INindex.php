@@ -811,7 +811,7 @@
     async function loadMenu() {
       try {
         console.log(`Loading menu for language: ${currentLanguage}`);
-        const response = await fetch(`../menu-api.php?lang=${currentLanguage}&menu_type=1`);
+        const response = await fetch(`menu/menu-api.php?lang=${currentLanguage}&menu_type=1`);
 
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}: ${response.statusText}`);

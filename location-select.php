@@ -125,6 +125,7 @@ header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-in
         .language-switcher {
             position: fixed;
             top: 20px;
+            <?= $direction === 'rtl' ? 'left' : 'right' ?>: 20px;
             z-index: 1000;
         }
 
@@ -373,12 +374,12 @@ header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-in
 </head>
 <body>
     <!-- Language Switcher -->
-    <!-- Language Switcher -->
-    <div class="language-switcher" style="<?=   $direction === 'rtl' ? 'left: 20px;' : 'right: 20px;' ?>">
+    <div class="language-switcher">
         <a href="language-select.php" class="back-btn">
-            <?=   $direction === 'rtl' ? '← تغيير اللغة' : 'Change Language →' ?>
+            <?= $direction === 'rtl' ? '← تغيير اللغة' : 'Change Language →' ?>
         </a>
     </div>
+
     <div class="container">
         <div class="logo">
             <img src="uploads/logo for menu.png" alt="Living Room Restaurant Logo">

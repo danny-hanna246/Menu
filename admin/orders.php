@@ -5,15 +5,6 @@ require_once 'config.php';
 require_once 'db.php';
 require_once 'functions.php';
 
-// Define logAudit if not already defined
-if (!function_exists('logAudit')) {
-    function logAudit($action, $details = []) {
-        // Example implementation: log to a file
-        $logEntry = date('Y-m-d H:i:s') . " | $action | " . json_encode($details) . PHP_EOL;
-        file_put_contents(__DIR__ . '/audit.log', $logEntry, FILE_APPEND);
-    }
-}
-
 requireAdmin();
 
 $success = '';
@@ -117,7 +108,6 @@ $csrfToken = generateCSRFToken();
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -480,7 +470,6 @@ $csrfToken = generateCSRFToken();
         }
     </style>
 </head>
-
 <body>
     <div class="container">
         <div class="header">
@@ -572,7 +561,7 @@ $csrfToken = generateCSRFToken();
             </div>
         <?php else: ?>
             <div class="orders-grid">
-                <?php foreach ($orders as $order):
+                <?php foreach ($orders as $order): 
                     $items = json_decode($order['items'], true);
                 ?>
                     <div class="order-card">
@@ -647,7 +636,7 @@ $csrfToken = generateCSRFToken();
 
                         <!-- الإجراءات -->
                         <div class="order-actions">
-                            <?php
+                            <?php 
                             $whatsappMessage = "Hello {$order['customer_name']}, your order #{$order['id']} status has been updated to: " . ucfirst($order['status']);
                             $whatsappLink = "https://wa.me/" . preg_replace('/[^0-9]/', '', $order['customer_phone']) . "?text=" . urlencode($whatsappMessage);
                             ?>
@@ -666,5 +655,4 @@ $csrfToken = generateCSRFToken();
         <?php endif; ?>
     </div>
 </body>
-
 </html>

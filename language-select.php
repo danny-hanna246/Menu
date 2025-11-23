@@ -20,7 +20,6 @@ header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-in
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -91,7 +90,6 @@ header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-in
                 opacity: 0;
                 transform: translateY(-30px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -109,12 +107,9 @@ header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-in
         }
 
         @keyframes pulse {
-
-            0%,
-            100% {
+            0%, 100% {
                 transform: scale(1);
             }
-
             50% {
                 transform: scale(1.05);
             }
@@ -234,7 +229,6 @@ header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-in
         }
     </style>
 </head>
-
 <body>
     <div class="container">
         <div class="logo">
@@ -282,5 +276,4 @@ header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-in
         }
     </script>
 </body>
-
 </html>
