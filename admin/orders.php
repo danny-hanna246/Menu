@@ -5,28 +5,15 @@ require_once 'config.php';
 require_once 'db.php';
 require_once 'functions.php';
 
+// Define logAudit if not already defined
 if (!function_exists('logAudit')) {
-    /**
-     * Fallback audit logger used when no logAudit implementation is present.
-     * Writes a JSON line to admin/audit.log with time, message and metadata.
-     *
-     * @param string $message
-     * @param array $meta
-     * @return void
-     */
-    function logAudit($message, $meta = []) {
-        $entry = [
-            'time' => date('c'),
-            'message' => $message,
-            'meta' => $meta
-        ];
-        // ensure directory is writable; write to a logfile next to this script
-        $logFile = __DIR__ . '/audit.log';
-        error_log(json_encode($entry, JSON_UNESCAPED_UNICODE) . PHP_EOL, 3, $logFile);
+    function logAudit($action, $details = []) {
+        // Example implementation: log to a file
+        $logEntry = date('Y-m-d H:i:s') . " | $action | " . json_encode($details) . PHP_EOL;
+        file_put_contents(__DIR__ . '/audit.log', $logEntry, FILE_APPEND);
     }
 }
 
-// التحقق من صلاحيات الأدمن
 requireAdmin();
 
 $success = '';
@@ -42,17 +29,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
 
         $allowedStatuses = ['pending', 'confirmed', 'preparing', 'ready', 'delivered', 'cancelled'];
         if (!in_array($newStatus, $allowedStatuses)) {
-            throw new Exception('Invalid status value');
+            throw new Exception('Invalid status');
         }
 
         $stmt = $pdo->prepare("UPDATE orders SET status = ?, updated_at = NOW() WHERE id = ?");
         $stmt->execute([$newStatus, $orderId]);
 
         $success = "Order status updated successfully";
-        logAudit("Order status updated", [
-            'order_id' => $orderId,
-            'new_status' => $newStatus
-        ]);
+        logAudit("Order status updated", ['order_id' => $orderId, 'new_status' => $newStatus]);
     } catch (Exception $e) {
         $error = $e->getMessage();
         logError("Order status update failed", ['error' => $e->getMessage()]);
@@ -180,7 +164,7 @@ $csrfToken = generateCSRFToken();
 
         .filter-group {
             flex: 1;
-            min-width: 150px;
+            min-width: 200px;
         }
 
         .filter-group label {
@@ -199,114 +183,225 @@ $csrfToken = generateCSRFToken();
             color: #f8f8f8;
         }
 
-        .orders-table {
+        .orders-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .order-card {
             background: #000000;
+            padding: 20px;
             border-radius: 10px;
-            overflow: hidden;
+            border: 1px solid rgba(248, 248, 248, 0.1);
+            transition: all 0.3s;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        .order-card:hover {
+            border-color: #ef4444;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);
         }
 
-        th {
-            background: #1a1a1a;
-            color: #f8f8f8;
-            padding: 15px;
-            text-align: left;
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #222;
+        }
+
+        .order-id {
+            color: #ef4444;
+            font-size: 18px;
             font-weight: 600;
-            border-bottom: 2px solid #333;
         }
 
-        td {
+        .order-date {
+            color: #999;
+            font-size: 14px;
+        }
+
+        .customer-info {
+            background: #1a1a1a;
             padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .customer-name {
+            color: #f8f8f8;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .customer-details {
+            color: #999;
+            font-size: 14px;
+        }
+
+        .order-items {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .order-items-title {
+            color: #f8f8f8;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
             border-bottom: 1px solid #222;
             color: #ccc;
+            font-size: 14px;
         }
 
-        tr:hover {
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-name {
+            flex: 1;
+        }
+
+        .item-qty {
+            color: #999;
+            margin: 0 15px;
+        }
+
+        .item-price {
+            color: #ef4444;
+            font-weight: 600;
+        }
+
+        .order-total {
             background: #1a1a1a;
+            padding: 12px 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .total-label {
+            color: #f8f8f8;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .total-amount {
+            color: #ef4444;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .order-status-form {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .status-select {
+            flex: 1;
+            padding: 10px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 5px;
+            color: #f8f8f8;
+            font-size: 14px;
         }
 
         .status-badge {
             display: inline-block;
-            padding: 5px 12px;
+            padding: 6px 12px;
             border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
+            text-transform: uppercase;
         }
 
         .status-pending {
-            background: #fbbf24;
-            color: #000;
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
         }
 
         .status-confirmed {
-            background: #3b82f6;
-            color: #fff;
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
         }
 
         .status-preparing {
-            background: #8b5cf6;
-            color: #fff;
+            background: rgba(168, 85, 247, 0.2);
+            color: #a855f7;
         }
 
         .status-ready {
-            background: #10b981;
-            color: #fff;
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
         }
 
         .status-delivered {
-            background: #22c55e;
-            color: #fff;
+            background: rgba(34, 197, 94, 0.3);
+            color: #22c55e;
+            border: 1px solid #22c55e;
         }
 
         .status-cancelled {
-            background: #ef4444;
-            color: #fff;
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
         }
 
         .order-type-badge {
             display: inline-block;
             padding: 4px 10px;
             border-radius: 15px;
-            font-size: 12px;
-            font-weight: 500;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: 10px;
         }
 
-        .order-delivery {
-            background: rgba(239, 68, 68, 0.2);
-            color: #ef4444;
-            border: 1px solid #ef4444;
+        .type-delivery {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
         }
 
-        .order-dine-in {
-            background: rgba(34, 197, 94, 0.2);
-            color: #22c55e;
-            border: 1px solid #22c55e;
+        .type-dine-in {
+            background: rgba(168, 85, 247, 0.2);
+            color: #a855f7;
         }
 
-        .action-btns {
+        .order-actions {
             display: flex;
-            gap: 8px;
+            gap: 10px;
         }
 
-        .btn-small {
-            padding: 6px 12px;
-            font-size: 13px;
-            border-radius: 5px;
+        .btn {
+            padding: 8px 16px;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
             transition: all 0.3s;
         }
 
-        .btn-view {
+        .btn-update {
             background: #3b82f6;
             color: white;
         }
 
-        .btn-view:hover {
+        .btn-update:hover {
             background: #2563eb;
         }
 
@@ -319,83 +414,46 @@ $csrfToken = generateCSRFToken();
             background: #dc2626;
         }
 
-        .status-select {
-            padding: 6px 10px;
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 5px;
-            color: #f8f8f8;
-            font-size: 13px;
-        }
-
-        .order-details-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
+        .btn-whatsapp {
+            background: #25d366;
+            color: white;
+            text-decoration: none;
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
+            gap: 5px;
         }
 
-        .modal-content {
-            background: #1a1a1a;
-            padding: 30px;
-            border-radius: 15px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            border: 1px solid #333;
+        .btn-whatsapp:hover {
+            background: #20ba5a;
         }
 
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #333;
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            background: #000000;
+            border-radius: 10px;
+            border: 1px solid rgba(248, 248, 248, 0.1);
         }
 
-        .modal-close {
-            font-size: 28px;
-            cursor: pointer;
-            color: #999;
-            transition: color 0.3s;
-        }
-
-        .modal-close:hover {
-            color: #fff;
-        }
-
-        .order-info-group {
+        .empty-state-icon {
+            font-size: 64px;
             margin-bottom: 20px;
         }
 
-        .order-info-label {
-            color: #999;
-            font-size: 13px;
-            margin-bottom: 5px;
-        }
-
-        .order-info-value {
+        .empty-state h3 {
             color: #f8f8f8;
-            font-size: 16px;
-            font-weight: 500;
+            margin-bottom: 10px;
         }
 
-        .order-items-list {
-            background: #000;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 10px;
+        .empty-state p {
+            color: #999;
         }
 
         @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
             .filters {
                 flex-direction: column;
             }
@@ -404,34 +462,46 @@ $csrfToken = generateCSRFToken();
                 width: 100%;
             }
 
-            table {
-                font-size: 13px;
-            }
-
-            th,
-            td {
-                padding: 10px 8px;
-            }
-
-            .action-btns {
+            .order-status-form {
                 flex-direction: column;
+            }
+
+            .status-select {
+                width: 100%;
+            }
+
+            .order-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
             }
         }
     </style>
 </head>
 
 <body>
-    <?php include 'header.php'; ?>
-
-    <div class="admin-container">
-        <h1>📦 Orders Management</h1>
+    <div class="container">
+        <div class="header">
+            <h1>📦 Orders Management</h1>
+            <div style="display: flex; gap: 10px;">
+                <a href="dashboard.php" class="btn" style="background: #666; color: white;">← Back to Dashboard</a>
+                <a href="ratings.php" class="btn" style="background: #fbbf24; color: #000;">⭐ View Ratings</a>
+                <a href="logout.php" class="btn" style="background: #ef4444; color: white;">🚪 Logout</a>
+            </div>
+        </div>
 
         <?php if ($success): ?>
-            <div class="success"><?= htmlspecialchars($success, ENT_QUOTES, 'UTF-8') ?></div>
+            <div class="success-message">
+                ✅ <?= htmlspecialchars($success) ?>
+            </div>
         <?php endif; ?>
 
         <?php if ($error): ?>
-            <div class="error"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></div>
+            <div class="error-message">
+                ⚠️ <?= htmlspecialchars($error) ?>
+            </div>
         <?php endif; ?>
 
         <!-- الإحصائيات -->
@@ -449,11 +519,11 @@ $csrfToken = generateCSRFToken();
                 <div class="stat-label">Delivered Orders</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">IQD <?= number_format($stats['today_revenue'], 2) ?></div>
+                <div class="stat-number"><?= number_format($stats['today_revenue']) ?> IQD</div>
                 <div class="stat-label">Today's Revenue</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">IQD <?= number_format($stats['total_revenue'], 2) ?></div>
+                <div class="stat-number"><?= number_format($stats['total_revenue']) ?> IQD</div>
                 <div class="stat-label">Total Revenue</div>
             </div>
         </div>
@@ -463,7 +533,7 @@ $csrfToken = generateCSRFToken();
             <div class="filter-group">
                 <label>Status Filter</label>
                 <select name="status" onchange="this.form.submit()">
-                    <option value="all" <?= $statusFilter === 'all' ? 'selected' : '' ?>>All Status</option>
+                    <option value="all" <?= $statusFilter === 'all' ? 'selected' : '' ?>>All Statuses</option>
                     <option value="pending" <?= $statusFilter === 'pending' ? 'selected' : '' ?>>Pending</option>
                     <option value="confirmed" <?= $statusFilter === 'confirmed' ? 'selected' : '' ?>>Confirmed</option>
                     <option value="preparing" <?= $statusFilter === 'preparing' ? 'selected' : '' ?>>Preparing</option>
@@ -493,165 +563,108 @@ $csrfToken = generateCSRFToken();
             </div>
         </form>
 
-        <!-- جدول الطلبات -->
-        <div class="orders-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Customer</th>
-                        <th>Phone</th>
-                        <th>Type</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if (empty($orders)): ?>
-                        <tr>
-                            <td colspan="8" style="text-align: center; padding: 40px; color: #999;">
-                                No orders found
-                            </td>
-                        </tr>
-                    <?php else: ?>
-                        <?php foreach ($orders as $order): ?>
-                            <tr>
-                                <td>#<?= $order['id'] ?></td>
-                                <td><?= htmlspecialchars($order['customer_name'], ENT_QUOTES, 'UTF-8') ?></td>
-                                <td><?= htmlspecialchars($order['customer_phone'], ENT_QUOTES, 'UTF-8') ?></td>
-                                <td>
-                                    <span class="order-type-badge order-<?= $order['order_type'] ?>">
-                                        <?= ucfirst(str_replace('-', ' ', $order['order_type'])) ?>
-                                    </span>
-                                </td>
-                                <td>IQD <?= number_format($order['total_amount'], 2) ?></td>
-                                <td>
-                                    <form method="post" style="display: inline;">
-                                        <input type="hidden" name="<?= CSRF_TOKEN_NAME ?>" value="<?= $csrfToken ?>">
-                                        <input type="hidden" name="order_id" value="<?= $order['id'] ?>">
-                                        <select name="status" class="status-select" onchange="this.form.submit()">
-                                            <option value="pending" <?= $order['status'] === 'pending' ? 'selected' : '' ?>>Pending</option>
-                                            <option value="confirmed" <?= $order['status'] === 'confirmed' ? 'selected' : '' ?>>Confirmed</option>
-                                            <option value="preparing" <?= $order['status'] === 'preparing' ? 'selected' : '' ?>>Preparing</option>
-                                            <option value="ready" <?= $order['status'] === 'ready' ? 'selected' : '' ?>>Ready</option>
-                                            <option value="delivered" <?= $order['status'] === 'delivered' ? 'selected' : '' ?>>Delivered</option>
-                                            <option value="cancelled" <?= $order['status'] === 'cancelled' ? 'selected' : '' ?>>Cancelled</option>
-                                        </select>
-                                        <input type="hidden" name="update_status" value="1">
-                                    </form>
-                                </td>
-                                <td><?= date('Y-m-d H:i', strtotime($order['created_at'])) ?></td>
-                                <td>
-                                    <div class="action-btns">
-                                        <button class="btn-small btn-view" onclick="viewOrder(<?= htmlspecialchars(json_encode($order), ENT_QUOTES, 'UTF-8') ?>)">
-                                            View
-                                        </button>
-                                        <form method="post" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this order?');">
-                                            <input type="hidden" name="<?= CSRF_TOKEN_NAME ?>" value="<?= $csrfToken ?>">
-                                            <input type="hidden" name="order_id" value="<?= $order['id'] ?>">
-                                            <button type="submit" name="delete_order" class="btn-small btn-delete">Delete</button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- مودال تفاصيل الطلب -->
-    <div id="orderModal" class="order-details-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Order Details</h2>
-                <span class="modal-close" onclick="closeModal()">&times;</span>
+        <!-- شبكة الطلبات -->
+        <?php if (empty($orders)): ?>
+            <div class="empty-state">
+                <div class="empty-state-icon">📦</div>
+                <h3>No Orders Yet</h3>
+                <p>Orders will appear here once customers place them</p>
             </div>
-            <div id="modalBody"></div>
-        </div>
-    </div>
+        <?php else: ?>
+            <div class="orders-grid">
+                <?php foreach ($orders as $order):
+                    $items = json_decode($order['items'], true);
+                ?>
+                    <div class="order-card">
+                        <!-- رأس الطلب -->
+                        <div class="order-header">
+                            <div>
+                                <div class="order-id">Order #<?= $order['id'] ?></div>
+                                <div class="order-date"><?= date('d M Y, h:i A', strtotime($order['created_at'])) ?></div>
+                            </div>
+                            <div style="text-align: right;">
+                                <span class="status-badge status-<?= $order['status'] ?>">
+                                    <?= ucfirst($order['status']) ?>
+                                </span>
+                                <span class="order-type-badge type-<?= $order['order_type'] ?>">
+                                    <?= ucfirst($order['order_type']) ?>
+                                </span>
+                            </div>
+                        </div>
 
-    <script>
-        function viewOrder(order) {
-            const modal = document.getElementById('orderModal');
-            const modalBody = document.getElementById('modalBody');
+                        <!-- معلومات العميل -->
+                        <div class="customer-info">
+                            <div class="customer-name">👤 <?= htmlspecialchars($order['customer_name']) ?></div>
+                            <div class="customer-details">
+                                📞 <?= htmlspecialchars($order['customer_phone']) ?>
+                                <?php if ($order['customer_address']): ?>
+                                    <br>📍 <?= htmlspecialchars($order['customer_address']) ?>
+                                <?php endif; ?>
+                            </div>
+                        </div>
 
-            const items = JSON.parse(order.order_items);
-            let itemsHTML = '<ul style="list-style: none; padding: 0;">';
-            items.forEach(item => {
-                itemsHTML += `<li style="padding: 8px 0; border-bottom: 1px solid #333;">
-                    <strong>${item.name}</strong> × ${item.quantity} = IQD ${item.price * item.quantity}
-                </li>`;
-            });
-            itemsHTML += '</ul>';
+                        <!-- المنتجات المطلوبة -->
+                        <div class="order-items">
+                            <div class="order-items-title">Ordered Items:</div>
+                            <?php if ($items): ?>
+                                <?php foreach ($items as $item): ?>
+                                    <div class="order-item">
+                                        <span class="item-name"><?= htmlspecialchars($item['name']) ?></span>
+                                        <span class="item-qty">x<?= $item['quantity'] ?></span>
+                                        <span class="item-price"><?= number_format($item['price'] * $item['quantity']) ?> IQD</span>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </div>
 
-            modalBody.innerHTML = `
-                <div class="order-info-group">
-                    <div class="order-info-label">Order ID</div>
-                    <div class="order-info-value">#${order.id}</div>
-                </div>
-                <div class="order-info-group">
-                    <div class="order-info-label">Customer Name</div>
-                    <div class="order-info-value">${order.customer_name}</div>
-                </div>
-                <div class="order-info-group">
-                    <div class="order-info-label">Phone</div>
-                    <div class="order-info-value">${order.customer_phone}</div>
-                </div>
-                ${order.customer_address ? `
-                <div class="order-info-group">
-                    <div class="order-info-label">Address</div>
-                    <div class="order-info-value">${order.customer_address}</div>
-                </div>
-                ` : ''}
-                <div class="order-info-group">
-                    <div class="order-info-label">Order Type</div>
-                    <div class="order-info-value">${order.order_type}</div>
-                </div>
-                <div class="order-info-group">
-                    <div class="order-info-label">Status</div>
-                    <div class="order-info-value">
-                        <span class="status-badge status-${order.status}">${order.status}</span>
+                        <!-- المجموع -->
+                        <div class="order-total">
+                            <span class="total-label">Total Amount:</span>
+                            <span class="total-amount"><?= number_format($order['total_amount']) ?> IQD</span>
+                        </div>
+
+                        <?php if ($order['notes']): ?>
+                            <div style="background: #1a1a1a; padding: 12px; border-radius: 8px; margin-bottom: 15px;">
+                                <div style="color: #999; font-size: 12px; margin-bottom: 5px;">Notes:</div>
+                                <div style="color: #ccc; font-size: 14px;"><?= htmlspecialchars($order['notes']) ?></div>
+                            </div>
+                        <?php endif; ?>
+
+                        <!-- تحديث الحالة -->
+                        <form method="POST" class="order-status-form">
+                            <input type="hidden" name="<?= CSRF_TOKEN_NAME ?>" value="<?= $csrfToken ?>">
+                            <input type="hidden" name="order_id" value="<?= $order['id'] ?>">
+                            <select name="status" class="status-select">
+                                <option value="pending" <?= $order['status'] === 'pending' ? 'selected' : '' ?>>Pending</option>
+                                <option value="confirmed" <?= $order['status'] === 'confirmed' ? 'selected' : '' ?>>Confirmed</option>
+                                <option value="preparing" <?= $order['status'] === 'preparing' ? 'selected' : '' ?>>Preparing</option>
+                                <option value="ready" <?= $order['status'] === 'ready' ? 'selected' : '' ?>>Ready</option>
+                                <option value="delivered" <?= $order['status'] === 'delivered' ? 'selected' : '' ?>>Delivered</option>
+                                <option value="cancelled" <?= $order['status'] === 'cancelled' ? 'selected' : '' ?>>Cancelled</option>
+                            </select>
+                            <button type="submit" name="update_status" class="btn btn-update">Update</button>
+                        </form>
+
+                        <!-- الإجراءات -->
+                        <div class="order-actions">
+                            <?php
+                            $whatsappMessage = "Hello {$order['customer_name']}, your order #{$order['id']} status has been updated to: " . ucfirst($order['status']);
+                            $whatsappLink = "https://wa.me/" . preg_replace('/[^0-9]/', '', $order['customer_phone']) . "?text=" . urlencode($whatsappMessage);
+                            ?>
+                            <a href="<?= $whatsappLink ?>" target="_blank" class="btn btn-whatsapp">
+                                📱 WhatsApp Customer
+                            </a>
+                            <form method="POST" onsubmit="return confirm('Are you sure you want to delete this order?');" style="flex: 1;">
+                                <input type="hidden" name="<?= CSRF_TOKEN_NAME ?>" value="<?= $csrfToken ?>">
+                                <input type="hidden" name="order_id" value="<?= $order['id'] ?>">
+                                <button type="submit" name="delete_order" class="btn btn-delete" style="width: 100%;">🗑️ Delete</button>
+                            </form>
+                        </div>
                     </div>
-                </div>
-                <div class="order-info-group">
-                    <div class="order-info-label">Order Items</div>
-                    <div class="order-items-list">${itemsHTML}</div>
-                </div>
-                <div class="order-info-group">
-                    <div class="order-info-label">Total Amount</div>
-                    <div class="order-info-value" style="color: #ef4444; font-size: 20px;">IQD ${order.total_amount}</div>
-                </div>
-                ${order.notes ? `
-                <div class="order-info-group">
-                    <div class="order-info-label">Notes</div>
-                    <div class="order-info-value">${order.notes}</div>
-                </div>
-                ` : ''}
-                <div class="order-info-group">
-                    <div class="order-info-label">Order Date</div>
-                    <div class="order-info-value">${order.created_at}</div>
-                </div>
-            `;
-
-            modal.style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('orderModal').style.display = 'none';
-        }
-
-        // إغلاق المودال عند الضغط خارجه
-        window.onclick = function(event) {
-            const modal = document.getElementById('orderModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        }
-    </script>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+    </div>
 </body>
 
 </html>

@@ -14,9 +14,9 @@ if (file_exists(__DIR__ . '/.env')) {
 
 // Database configuration with fallbacks
 define('DB_HOST', $_ENV['DB_HOST'] ?? '82.197.82.161');
-define('DB_NAME', $_ENV['DB_NAME'] ?? 'u307631199_MenuDB');
-define('DB_USER', $_ENV['DB_USER'] ?? 'u307631199_MenuDB');
-define('DB_PASS', $_ENV['DB_PASS'] ?? 'MPS@1234@jn');
+define('DB_NAME', $_ENV['DB_NAME'] ?? 'u307631199_Menu2DB');
+define('DB_USER', $_ENV['DB_USER'] ?? 'u307631199_Menu2DB');
+define('DB_PASS', $_ENV['DB_PASS'] ?? 'Menu2DB@123');
 
 // Security settings
 define('CSRF_TOKEN_NAME', '_token');
