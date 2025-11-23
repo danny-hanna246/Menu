@@ -1,6 +1,30 @@
 <?php
 // Enhanced index.php with comprehensive security measures
+session_start();
 
+// إذا لم يتم اختيار اللغة، انتقل لصفحة اختيار اللغة
+if (!isset($_SESSION['lang']) || empty($_SESSION['lang'])) {
+  header('Location: language-select.php');
+  exit;
+}
+
+// إذا لم يتم اختيار الموقع، انتقل لصفحة اختيار الموقع
+if (!isset($_SESSION['location']) || empty($_SESSION['location'])) {
+  header('Location: location-select.php');
+  exit;
+}
+
+// الحصول على اللغة والموقع المحددين
+$selectedLang = $_SESSION['lang'];
+$selectedLocation = $_SESSION['location'];
+
+// السماح بتغيير اللغة
+if (isset($_GET['change_lang'])) {
+  unset($_SESSION['lang']);
+  unset($_SESSION['location']);
+  header('Location: language-select.php');
+  exit;
+}
 // Security headers
 header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: SAMEORIGIN');
